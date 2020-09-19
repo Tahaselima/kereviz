@@ -224,6 +224,7 @@ export default class PostView extends Component {
                             alignItems: "flex-start",
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
+                            backgroundColor: "#313131"
                         },
                     }}
                 >

@@ -9,9 +9,9 @@ export default {
 
     header: {
         flex: 1,
-        height: 45,
+        height: 60,
         width: '100%',
-        backgroundColor: '#E8E8E8',
+        backgroundColor: '#202429',
         justifyContent: 'center',
     },
     changeGridButton: {
