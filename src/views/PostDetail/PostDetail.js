@@ -16,6 +16,8 @@ import language from '../../config/language';
 //Library
 import RBSheet from "react-native-raw-bottom-sheet"; // Bottom Modal
 
+import SkeletonContent from 'react-native-skeleton-content';
+
 
 @inject('TextStore', 'PostDetailStore')
 @observer
@@ -142,12 +144,23 @@ export default class PostDetail extends Component {
     render() {
         return (
             <ScrollView key={this.state.postData.title}>
-                <Image style={styles.thumbnail} source={this.state.imageUrl ? { uri: this.state.imageUrl } : require('../../img/slider-cover.jpg')}
-                />
+                {this.state.imageUrl 
+                    ? <Image style={styles.thumbnail} source={{uri: this.state.imageUrl}}/>
+                    : <SkeletonContent
+                        containerStyle={{ flex: 1, backgroundColor: '#202429' }}
+                        isLoading={true}
+                        boneColor="#202429"
+                        highlightColor="#3a3a3a"
+                        layout={[
+                            { key: 'someId', width: '100%', height: 300 },
+                          ]}
+                        />
+                }
+                
 
                 <View style={styles.textArea}>
                     <Text style={styles.title}>{this.state.postData.title} </Text>
-                    <HTML html={this.state.postData.description} tagsStyles={styles} imagesMaxWidth={Dimensions.get('screen').width} textSelectable={true} onLinkPress={(event, href) => this.clickUrl(href)} baseFontStyle={{ fontSize: 20, lineHeight: 35 }} />
+                    <HTML html={this.state.postData.description} tagsStyles={styles} imagesMaxWidth={Dimensions.get('screen').width} textSelectable={true} onLinkPress={(event, href) => this.clickUrl(href)} baseFontStyle={{ fontSize: 20, lineHeight: 35, color: 'white' }} />
                     <View style={styles.postInformation}>
                         <Author key={this.state.postData.authorId} authorId={this.state.postData.authorId} marginRight={15} backgroundColor={color.detailAuthorBackground} color={color.detailAuthorTextColor} />
                         <TouchableOpacity onPress={this.goToCategory}>

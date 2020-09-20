@@ -1,7 +1,7 @@
 export default {
     //Tab Bar Color 
     tabBarColor: '#313131',
-    tabBarFocusColor: '#1b1919',
+    tabBarFocusColor: '#202429',
     //Slider Category Components Color 
     sliderCategoryBackground :'#fff',
     sliderCategoryTextColor :'#1D7BF6',

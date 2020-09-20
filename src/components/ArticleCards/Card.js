@@ -36,17 +36,23 @@ const styles = StyleSheet.create({
     listItemAreas: {
         margin: 10,
         marginBottom: 20,
-        backgroundColor: '#fff',
-        borderRadius: 10,
+        backgroundColor: '#202429',
+        color: '#fff',
         flex: 1,
     },
     listTextArea: {
-        padding: 15,
+        padding: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#61dafb',
     },
     listTitle: {
         fontSize: 20,
+        color: '#fff',
         fontWeight: "bold",
         marginBottom: 10,
     },
+    listDescription:{
+        color: '#fff'
+    }
 })
 

@@ -13,6 +13,9 @@ export default {
         width: '100%',
         backgroundColor: '#202429',
         justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#61dafb',
     },
     changeGridButton: {
         alignSelf: 'flex-end',
@@ -21,14 +24,14 @@ export default {
     },
     changeImage: {
         margin: 10,
-        height: 28,
-        width: 28,
+        height: 30,
+        width: 185,
     },
     sliderItemAreas: {
         width,
         height: 'auto',
-        padding: 10,
         marginBottom: 10,
+        backgroundColor: '#1c2025'
     },
     imageCover: {
         position: 'absolute',

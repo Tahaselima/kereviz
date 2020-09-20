@@ -4,6 +4,8 @@ import { View, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 //
 import config from '../config/index';
+import SkeletonContent from 'react-native-skeleton-content';
+
 
 export default class ListImage extends Component {
   state = {
@@ -28,10 +30,21 @@ export default class ListImage extends Component {
   render() {
     return (
       <View onPress={this.props.onItemPressed} style={styles.imageView}>
-        <Image
-          style={styles.image,{height:this.props.imageHeight, width:this.props.imageWidth, borderRadius:this.props.borderRadius}}
-          source={this.state.imageUrl ? { uri: this.state.imageUrl } : require('../img/slider-cover.jpg')}
-        />
+        {this.state.imageUrl 
+                    ? <Image
+                        style={styles.image,{height:this.props.imageHeight, width:this.props.imageWidth, borderRadius:this.props.borderRadius}}
+                        source={{ uri: this.state.imageUrl }}
+                      />
+                    : <SkeletonContent
+                        containerStyle={{ flex: 1}}
+                        isLoading={true}
+                        boneColor="#202429"
+                        highlightColor="#3a3a3a"
+                        layout={[
+                            { key: 'someId', width: '100%', height: this.props.imageHeight },
+                          ]}
+                        />
+                }
       </View>
     );
   }

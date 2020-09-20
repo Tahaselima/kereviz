@@ -66,7 +66,7 @@ export default class PostView extends Component {
 
         this.setState({
             numColumns: columnNumber,
-            cardType: gridStlye,
+            cardType: 2,
         })
 
         let cardDesign = {
@@ -111,9 +111,7 @@ export default class PostView extends Component {
         return (
             <View>
                 <View style={styles.header}>
-                    <TouchableOpacity style={styles.changeGridButton} onPress={() => this.RBSheet.open()}>
-                        <Image style={styles.changeImage} source={require('../../img/icons/change-grid-icon.png')} />
-                    </TouchableOpacity>
+                    <Image style={styles.changeImage} source={require('../../img/logo.png')} />
                 </View>
 
                 <FlatList
@@ -132,8 +130,7 @@ export default class PostView extends Component {
         const { TextStore } = this.props;
         return (
             <TouchableOpacity key={index} style={styles.sliderItemAreas} onPress={() => this.goToDetail(item)}>
-                <ListImage style={styles.sliderImage} mediaId={item.item.featured_media} imageHeight={250} borderRadius={20} />
-                <Image style={styles.imageCover} source={require('../../img/slider-cover.jpg')} />
+                <ListImage style={styles.sliderImage} mediaId={item.item.featured_media} imageHeight={250} />
                 <View style={styles.sliderTextArea}>
                     <CategoryName key={this.state.postData.categoryId} categoryId={item.item.categories[0]} height={24} backgroundColor={color.sliderCategoryBackground} color={'#1D7BF6'} marginBottom={10} />
                     <Text numberOfLines={3} style={styles.sliderTitle}>{TextStore.clearText(item.item.title.rendered)}</Text>

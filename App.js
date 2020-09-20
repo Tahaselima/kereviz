@@ -129,6 +129,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
+    borderTopWidth: 1,
+    borderTopColor: '#61dafb',
   },
   navigationIcon: {
     height: 24,
