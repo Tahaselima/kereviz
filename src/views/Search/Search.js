@@ -64,7 +64,7 @@ export class Search extends Component {
 
         return (
             <View style={styles.searchView}>
-                <TextInput onBlur={() => this.onBlur()} onFocus={() => this.onFocus()} style={[this.state.isFocus ? styles.searchInputFocus : styles.searchInput]} placeholder={language.searchBar} onChangeText={searchValue => this.searchTextChange(searchValue)} value={this.state.searchValue}
+                <TextInput onBlur={() => this.onBlur()} onFocus={() => this.onFocus()} style={[this.state.isFocus ? styles.searchInputFocus : styles.searchInput]} placeholder={language.searchBar} placeholderTextColor='white' onChangeText={searchValue => this.searchTextChange(searchValue)} value={this.state.searchValue}
                 />
                 <ActivityIndicator style={[styles.searchActivityIndicator, SearchStore.isLoading ? { opacity: 0 } : { opacity: 1 }]} size={"small"} />
             </View>
@@ -115,7 +115,7 @@ export class Search extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#313131'
     },
     searchView: {
         height: 100,
@@ -123,15 +123,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     searchInput: {
-        backgroundColor: '#f1f1f1',
+        backgroundColor: '#4c4c4c',
         paddingHorizontal: 15,
         borderRadius: 25,
+        color: 'white',
     },
     searchInputFocus: {
-        backgroundColor: '#f1f1f1',
+        backgroundColor: '#4c4c4c',
         paddingHorizontal: 15,
         borderRadius: 0,
         fontWeight: 'bold',
+        color: 'white',
     },
     searchList: {
         paddingHorizontal: 10,

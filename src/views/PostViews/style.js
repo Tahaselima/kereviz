@@ -7,6 +7,10 @@ const width = Dimensions.get('screen').width;
 
 export default {
     header: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
         flex: 1,
         height: 60,
         width: '100%',
@@ -28,12 +32,9 @@ export default {
     },
     sliderItemAreas: {
         width,
-        height: 'auto',
+        height: 250,
         marginBottom: 10,
         backgroundColor: '#1c2025',
-        shadowColor: 'black',
-        shadowRadius: 10,
-        shadowOpacity: 1,
     },
     imageCover: {
         position: 'absolute',

@@ -7,7 +7,8 @@ import {
     FlatList,
     TouchableOpacity,
     ActivityIndicator,
-    AsyncStorage
+    AsyncStorage,
+    Animated
 } from 'react-native';
 
 //Config
@@ -23,6 +24,7 @@ import { observer, inject } from 'mobx-react';
 //Packages
 import color from '../../config/color';
 import language from '../../config/language';
+import { ScrollView } from 'react-native-gesture-handler';
 
 @inject('TextStore', 'PostDetailStore', 'PostListStore')
 @observer
@@ -39,6 +41,7 @@ export default class PostView extends Component {
         dataStatus: true,
         isRefreshing: false,
         adsNumber: 0,
+        scrollY: new Animated.Value(0)
     };
 
     componentDidMount() {
@@ -104,37 +107,54 @@ export default class PostView extends Component {
         console.log("PostView - Load More : " + this.state.page);
     };
     //#endregion
-
     //#region  FlatList - Slider,Grid -  and Header Processes
     Slider = () => {
+        
+        const diffClamp = Animated.diffClamp(this.state.scrollY, 0, 60)
+        const translateY = diffClamp.interpolate({
+            inputRange: [0, 60],
+            outputRange: [0, -60]
+        })
+        return (
+                <Animated.View style={{transform: [{translateY: translateY}], 
+                    elevation: 7,
+                    zIndex: 1000,
+                }}>
+                    <View style={styles.header}>
+                        <Image style={styles.changeImage} source={require('../../img/logo.png')} />
+                    </View>
+                </Animated.View>
+        )
+    };
+
+    SliderData = () => {
         const { PostListStore } = this.props;
         return (
-            <View>
-                <View style={styles.header}>
-                    <Image style={styles.changeImage} source={require('../../img/logo.png')} />
-                </View>
-
+            <View style={{marginTop:60}}>
                 <FlatList
+                    style={styles.postList}
                     renderItem={this.renderSliderData}
                     data={PostListStore.sliderData}
+                    key={this.state.cardType}
                     keyExtractor={(item, index) => index.toString()}
                     horizontal={true}
                     pagingEnabled={true}
                     persistentScrollbar={true}
+                    style={{height:'auto'}}
                 />
             </View>
         )
-    };
+    }
 
     renderSliderData = (item, index) => {
         const { TextStore } = this.props;
         return (
             <TouchableOpacity key={index} style={styles.sliderItemAreas} onPress={() => this.goToDetail(item)}>
-                <ListImage style={styles.sliderImage} mediaId={item.item.featured_media} imageHeight={250} />
-                <View style={styles.sliderTextArea}>
-                    <CategoryName key={this.state.postData.categoryId} categoryId={item.item.categories[0]} height={24} backgroundColor={color.sliderCategoryBackground} color={'#1D7BF6'} marginBottom={10} />
-                    <Text numberOfLines={3} style={styles.sliderTitle}>{TextStore.clearText(item.item.title.rendered)}</Text>
-                </View>
+                 <ListImage style={styles.sliderImage} mediaId={item.item.featured_media} imageHeight={250} />
+                 <View style={styles.sliderTextArea}>
+                     <CategoryName key={this.state.postData.categoryId} categoryId={item.item.categories[0]} height={24} backgroundColor={color.sliderCategoryBackground} color={'#1D7BF6'} marginBottom={10} />
+                     <Text numberOfLines={3} style={styles.sliderTitle}>{TextStore.clearText(item.item.title.rendered)}</Text>
+                 </View>
             </TouchableOpacity>
         )
     };
@@ -191,22 +211,27 @@ export default class PostView extends Component {
         const { PostListStore } = this.props;
         return (
             <SafeAreaView style={globalStyle.container}>
-                <FlatList
-                    style={styles.postList}
-                    renderItem={this.renderPostData}
-                    data={PostListStore.postData}
-                    keyExtractor={(item, index) => index.toString()}
-                    ListFooterComponent={this.LoadingCircle}
-                    ListHeaderComponent={this.Slider}
-                    numColumns={this.state.numColumns}
-                    key={this.state.cardType}
+                {this.Slider()}
+                <ScrollView
+                    onScroll={(e) => this.state.scrollY.setValue(e.nativeEvent.contentOffset.y)}
+                    >
+                    {this.SliderData()}
+                    <FlatList
+                        style={styles.postList}
+                        renderItem={this.renderPostData}
+                        data={PostListStore.postData}
+                        keyExtractor={(item, index) => index.toString()}
+                        ListFooterComponent={this.LoadingCircle}
+                        numColumns={this.state.numColumns}
+                        key={this.state.cardType}
 
-                    onEndReached={this.loadMoreData}
-                    onEndReachedThreshold={10}
-
-                    refreshing={this.state.isRefreshing}
-                    onRefresh={this.onRefresh}
-                />
+                        onEndReached={this.loadMoreData}
+                        onEndReachedThreshold={10}
+                        refreshing={this.state.isRefreshing}
+                        onRefresh={this.onRefresh}
+                    />
+                </ScrollView>
+                
                 {/* RBSheet bottom Modal component */}
                 <RBSheet
                     ref={ref => {
