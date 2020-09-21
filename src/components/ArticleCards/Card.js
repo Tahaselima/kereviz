@@ -34,7 +34,6 @@ export default class Card extends Component {
 
 const styles = StyleSheet.create({
     listItemAreas: {
-        margin: 10,
         marginBottom: 20,
         backgroundColor: '#202429',
         color: '#fff',
@@ -53,6 +52,6 @@ const styles = StyleSheet.create({
     },
     listDescription:{
         color: '#fff'
-    }
+    },
 })
 

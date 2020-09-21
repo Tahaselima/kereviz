@@ -1,3 +1,3 @@
 export default{
-  url: 'https://hasaneksi.net/'
+  url: 'https://kadinev.com/'
 }

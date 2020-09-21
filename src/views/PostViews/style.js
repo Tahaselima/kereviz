@@ -6,7 +6,6 @@ import {
 const width = Dimensions.get('screen').width;
 
 export default {
-
     header: {
         flex: 1,
         height: 60,
@@ -31,7 +30,10 @@ export default {
         width,
         height: 'auto',
         marginBottom: 10,
-        backgroundColor: '#1c2025'
+        backgroundColor: '#1c2025',
+        shadowColor: 'black',
+        shadowRadius: 10,
+        shadowOpacity: 1,
     },
     imageCover: {
         position: 'absolute',
@@ -44,7 +46,11 @@ export default {
     },
     sliderTextArea: {
         position: 'absolute',
-        padding: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.42)',
+        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 10,
+        width: '100%',
+        padding: 15,
         left: 10,
         bottom: 30,
     },
@@ -69,7 +75,6 @@ export default {
         marginTop: 20,
     },
     gridChangeButton: {
-        padding: 15,
         margin: 15,
         backgroundColor: '#fff',
         alignItems: 'center'
