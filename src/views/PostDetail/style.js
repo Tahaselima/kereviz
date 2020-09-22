@@ -25,7 +25,7 @@ export default {
         alignItems:'center',
         color: 'white',
         padding: 15,
-        backgroundColor:'#f7f8fa',
+        backgroundColor:'#1c2025',
         justifyContent:'space-between'
     },
     img: {

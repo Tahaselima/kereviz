@@ -82,13 +82,14 @@ export default class ArticleAdviceList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#1c2025'
     },
     itemArea: {
         width: 275,
         height: 250,
         marginHorizontal: 15,
         marginBottom: 10,
-        backgroundColor: '#fff'
+        backgroundColor: '#202429'
     },
     textArea: {
         padding: 10,
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
     itemTitle: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: '#fff'
     },
     viewTitle: {
         fontSize: 25,
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
         margin: 10,
         marginBottom: 20,
         borderLeftWidth: 2,
-        borderLeftColor: '#000'
+        borderLeftColor: '#fff',
+        color: '#fff'
     }
 })

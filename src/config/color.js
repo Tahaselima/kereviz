@@ -12,12 +12,12 @@ export default {
     detailCategoryBackground : '#1D7BF6',
     detailCategoryTextColor : '#fff',
     //Detail Page Author Colors
-    detailAuthorBackground:'transparent',
-    detailAuthorTextColor :'#000',
+    detailAuthorBackground:'#202429',
+    detailAuthorTextColor :'#fff',
     //Detail Page Comment Colors
     detailCommentBackground:'#1D7BF6',
     detailCommentTextColor :'#fff',
     //Category View Box Colors
-    categoryBoxBackground :'#fff',
-    categoryBoxTextColor :'#000',
+    categoryBoxBackground :'#202429',
+    categoryBoxTextColor :'#fff',
 }

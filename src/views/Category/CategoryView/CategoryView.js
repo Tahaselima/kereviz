@@ -31,8 +31,9 @@ export class CategoryView extends Component {
         const { CategoryStore } = this.props;
 
         return (
-            <SafeAreaView>
+            <SafeAreaView >
                 <FlatList
+                    style={{backgroundColor: '#1c2025'}}
                     renderItem={this.renderCategoryItem}
                     data={CategoryStore.categoryPosts}
                     keyExtractor={(item, index) => index.toString()}
