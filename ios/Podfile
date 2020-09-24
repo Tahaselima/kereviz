@@ -1,5 +1,6 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native-unimodules/cocoapods.rb'
 
 def add_flipper_pods!(versions = {})
   versions['Flipper'] ||= '~> 0.33.1'
@@ -45,6 +46,7 @@ def flipper_post_install(installer)
 end
 
 target 'Kereviz' do
+  use_unimodules!
   # Pods for Kereviz
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -81,7 +83,6 @@ target 'Kereviz' do
     inherit! :complete
     # Pods for testing
   end
-
   use_native_modules!
 
   # Enables Flipper.
