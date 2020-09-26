@@ -33,7 +33,7 @@ export class CategoryView extends Component {
         return (
             <SafeAreaView >
                 <FlatList
-                    style={{backgroundColor: '#1c2025'}}
+                    style={{backgroundColor: '#1c2025', height: '100%'}}
                     renderItem={this.renderCategoryItem}
                     data={CategoryStore.categoryPosts}
                     keyExtractor={(item, index) => index.toString()}

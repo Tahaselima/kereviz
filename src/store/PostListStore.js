@@ -28,6 +28,7 @@ class PostListStore {
         }
 
         try {
+            this.isLoading = true
             const { data } = await axios.get(config.url + `wp-json/wp/v2/posts?page=${page}`);
             runInAction(() => {
                 this.setData = [...this.setData, ...data];
@@ -37,7 +38,7 @@ class PostListStore {
                 else {
                     this.postData = [...this.postData, ...data];
                 }
-                this.isLoading = true;
+                this.isLoading = false;
             })
         } catch (error) {
             console.log("getPostData Error Message : " + error);

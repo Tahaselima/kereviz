@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  StatusBar
 } from 'react-native';
 
 //Pages 
@@ -112,6 +113,7 @@ export default class App extends Component {
     return (
       <Provider {...store}>
         <NavigationContainer>
+          <StatusBar backgroundColor='#202429' />
           <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
             <Tab.Screen name="Home" component={HomeStackScreen} />
             <Tab.Screen name="Search" component={SearchStackScreen}/>

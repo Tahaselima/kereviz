@@ -74,7 +74,8 @@ export default class CategoryList extends Component {
 const styles = StyleSheet.create({
     categoryList: {
         padding: 5,
-        backgroundColor: '#1c2025'
+        backgroundColor: '#1c2025',
+        height: '100%'
     },
     categoryItem: {
         flex: 1,

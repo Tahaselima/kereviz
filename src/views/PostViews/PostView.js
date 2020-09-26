@@ -8,7 +8,9 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     AsyncStorage,
-    Animated
+    Animated,
+    RefreshControl,
+    ScrollView
 } from 'react-native';
 
 //Config
@@ -24,7 +26,6 @@ import { observer, inject } from 'mobx-react';
 //Packages
 import color from '../../config/color';
 import language from '../../config/language';
-import { ScrollView } from 'react-native-gesture-handler';
 
 @inject('TextStore', 'PostDetailStore', 'PostListStore')
 @observer
@@ -41,6 +42,7 @@ export default class PostView extends Component {
         dataStatus: true,
         isRefreshing: false,
         adsNumber: 0,
+        isLoadMore: false,
         scrollY: new Animated.Value(0)
     };
 
@@ -84,7 +86,7 @@ export default class PostView extends Component {
     loadMoreData = () => {
         const { PostListStore } = this.props;
         this.setState({
-            page: this.state.page + 1,
+            page: this.state.page + 1
         }, () => {
             if (this.state.dataStatus) {
                 PostListStore.isFirstLoading = false;
@@ -197,8 +199,6 @@ export default class PostView extends Component {
 
     //#region  Design Functions
     LoadingCircle = () => {
-        if (this.props.PostListStore.isLoading)
-            return null;
         return (
             <View style={{ padding: 25 }}>
                 <ActivityIndicator size={'large'} />
@@ -206,14 +206,32 @@ export default class PostView extends Component {
         )
     }
 
+    
+
     //#endregion
     render() {
         const { PostListStore } = this.props;
+        const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+            const paddingToBottom = 300;
+            return layoutMeasurement.height + contentOffset.y >=
+              contentSize.height - paddingToBottom;
+        };
         return (
             <SafeAreaView style={globalStyle.container}>
                 {this.Slider()}
                 <ScrollView
-                    onScroll={(e) => this.state.scrollY.setValue(e.nativeEvent.contentOffset.y)}
+                    onScroll={(e) => {
+                        this.state.scrollY.setValue(e.nativeEvent.contentOffset.y)
+                        if(isCloseToBottom(e.nativeEvent) && !PostListStore.isLoading){
+                            this.loadMoreData()
+                        }
+                    }}
+                    refreshControl={
+                        <RefreshControl
+                          refreshing={this.state.isRefreshing}
+                          onRefresh={this.onRefresh}
+                        />
+                      }
                     >
                     {this.SliderData()}
                     <FlatList
@@ -221,15 +239,10 @@ export default class PostView extends Component {
                         renderItem={this.renderPostData}
                         data={PostListStore.postData}
                         keyExtractor={(item, index) => index.toString()}
-                        ListFooterComponent={this.LoadingCircle}
                         numColumns={this.state.numColumns}
                         key={this.state.cardType}
-
-                        onEndReached={this.loadMoreData}
-                        onEndReachedThreshold={10}
-                        refreshing={this.state.isRefreshing}
-                        onRefresh={this.onRefresh}
                     />
+                    {this.LoadingCircle()}
                 </ScrollView>
                 
                 {/* RBSheet bottom Modal component */}
